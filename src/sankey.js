@@ -57,7 +57,8 @@ export default function() {
       align = justify,
       nodes = defaultNodes,
       links = defaultLinks,
-      iterations = 32;
+      iterations = 32,
+      node_depth = null;
 
   function sankey() {
     var graph = {nodes: nodes.apply(null, arguments), links: links.apply(null, arguments)};
@@ -109,6 +110,10 @@ export default function() {
   sankey.iterations = function(_) {
     return arguments.length ? (iterations = +_, sankey) : iterations;
   };
+
+  sankey.nodeDepth = function(_) {
+    return arguments.length ? (node_depth = +_, sankey) : node_depth;
+  }
 
   // Populate the sourceLinks and targetLinks for each node.
   // Also, if the source and target are not objects, assume they are indices.
@@ -168,6 +173,7 @@ export default function() {
       });
     }
 
+    if (node_depth !== null) x = Math.max(node_depth, x);
     var kx = (x1 - x0 - dx) / (x - 1);
     graph.nodes.forEach(function(node) {
       node.x1 = (node.x0 = x0 + Math.max(0, Math.min(x - 1, Math.floor(align.call(null, node, x)))) * kx) + dx;
