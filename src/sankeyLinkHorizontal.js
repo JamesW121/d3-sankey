@@ -1,6 +1,6 @@
 import {linkHorizontal} from "d3-shape";
 
-var MIN_OFFSET = 0.001;
+var MIN_OFFSET = 0.01;
 
 function horizontalSource(d) {
   return [d.source.x1, d.y0];
